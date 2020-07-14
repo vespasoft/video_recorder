@@ -15,6 +15,4 @@ abstract class UseCase<T>(private val transformer: Transformer<T>) {
         return createObservable(withData).compose(transformer)
     }
 
-
-
 }
