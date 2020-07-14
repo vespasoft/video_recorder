@@ -25,7 +25,7 @@ El proyecto se ha desarrollado basándose en el patrón Clean Arquitecture el cu
  
  ### Patrones ###
   * Repository: Se ha implementado el patrón repository en la capa de datos, de esta forma se oculta el origen y la lógica de los datos al resto de capas.
-  * Dependency Injection: Se ha implementado el patrón Inyección de dependencias usando el framework Koin y cumpliendo con el principio **Dependency Inversion**
+  * Dependency Injection: Se ha implementado el patrón Inyección de dependencias usando el framework Koin y cumpliendo con el **Dependency Inversion Principle**
   * ViewModelFactory: Extendiendo de la clase ViewModelProvider.Factory de jetPack se ha implementado el patrón Factory para la instanciación de los ViewModel. 
 
 ### Análisis y Desarrollo ###  
@@ -35,7 +35,9 @@ de código tanto en el diseño de la vista haciendo uso de custom views como en 
 
 A continuación mostraré algunos diagramas de clases que describe las capas donde se han aplicado este tipo de clases.
 
- * UseCase (abstract class)
+ * UseCase (abstract class): 
+ ![Abstract Class Diagram](https://github.com/vespasoft/video_recorder/blob/master/domain_diagram_class.png?raw=true "Abstract Class Use Case")
+
  * VMLibraryAdapter (sealed class)
  * BaseFragment (Fragment)
  * CameraFragment (BaseFragment)
@@ -49,3 +51,6 @@ A continuación mostraré algunos diagramas de clases que describe las capas don
   * Cada lógica de negocio queda centralizada en un UseCase, por lo que es mas facil de mantener y de anñadir nuevas funcionalidades sin necesidad de modificar las existentes, por ejemplo: Para añadir una nueva funcionalidad llamada *Eliminar videos en cascada* no será necesario modificar el DeleteVideoUseCase, sino que se crea un nuevo UseCase y de esta forma se evita modificar las funcionalidades existentes.
   * Los Custom Views son una buena forma de reutilizar código en la capa de la vista, en este caso en el custom view VoiceModVideoView se encapsula la lógica del reproductor y se reutiliza tanto en la clase VideoRecorderFragment como en la clase CameraActivity.
  
+ ### Posibles Mejoras ###
+ * Es muy problable que a nivel de diseño y de UX la aplicacion sea bastante mejorable, ya que los esfueros se centraron en la calidad del codigo y no en la experiencia visual del usuario, por lo que se puede mejorar con animaciones en las transiciones de objetos y en la navegacion.
+ * En la capa de la vista el CameraFragment se puede mejorar haciendolo mas comun para que se pueda reutilizar en otras funcionalidades como tomar foto u otra.
