@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_video_library">
+
+    <fragment
+        android:id="@+id/navigation_video_library"
+        android:name="com.voicemod.videorecorder.view.fragments.VideoLibraryFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_video_library" />
+
+    <fragment
+        android:id="@+id/navigation_video_recorder"
+        android:name="com.voicemod.videorecorder.view.fragments.VideoRecorderFragment"
+        android:label="@string/title_video_recorder"
+        tools:layout="@layout/fragment_video_recorder" />
+
+</navigation>
