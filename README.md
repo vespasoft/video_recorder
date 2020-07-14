@@ -4,7 +4,7 @@ Grabadora de video con funcionalidades básicas desarrollada en Android nativo c
 
 ### Arquitectura ###
 
-El proyecto se ha desarrollado basándose en el patrón Clean Arquitecture el cual divide el código en cuatro capas Independiente, esto facilita el mantenimiento del código y la aplicación de pruebas unitarias.
+El proyecto se ha desarrollado basándose en el patrón Clean Arquitecture el cual divide el código en cuatro capas desacopladas, esto facilita el mantenimiento del código y la implementación de pruebas unitarias.
 
 ![Clean Arquitecture Logo](https://res.cloudinary.com/practicaldev/image/fetch/s--T7GIdw6s--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://miro.medium.com/max/1488/1%2AD1EvAeK74Gry46JMZM4oOQ.png "An exemplary image")
 
@@ -15,10 +15,10 @@ El proyecto se ha desarrollado basándose en el patrón Clean Arquitecture el cu
   * View
 
 ### Frameworks y Dependencias ###
- * rxjava2 y rxandroid: Se utilizo el patrón Observer para las peticiones asíncronas y manejo procesos de larga duración en la cama Domain (UseCase).
- * SQLite: Se ha implementado una capa llamada LocalDataSource donde se implementa la base de datos SQLite sin utilizar ningún framework (no quise utilizar ROOM).
+ * rxjava2 y rxandroid: Se ha utilizado el patrón Observer para las peticiones asíncronas y el manejo de procesos de larga duración en la capa Domain (UseCase).
+ * SQLite: Se ha implementado una capa llamada LocalDataSource donde se implementa la base de datos SQLite sin utilizar ningún framework.
  * Koin: Se utilizó el framework Koin para la inyección de dependencias en ves de Dagger2, ya que Koin es mucho más intuitivo para pequeños proyectos.
- * Dexter: Se utilizó la librería dexter para el manejo de solicitud de permisos al usuario.
+ * Dexter: Se utilizó la librería Dexter para el manejo de solicitud de permisos al usuario.
  * Glide: Librería para tratamiento de imágenes.
  * ViewModel: La capa presenter se reemplazo por el componente ViewModel de JetPack
  * LiveData: Se ha utilizado LiveData para notificar a la vista desde el ViewModel y enviar los datos recibidos de la capa Domain.
