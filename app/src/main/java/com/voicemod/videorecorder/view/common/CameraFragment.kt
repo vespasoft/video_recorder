@@ -143,9 +143,7 @@ abstract class CameraFragment : BaseFragment() {
     private fun requestPermission() {
         Dexter.withActivity(activity).withPermissions(
             Manifest.permission.CAMERA,
-            Manifest.permission.RECORD_AUDIO,
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
+            Manifest.permission.RECORD_AUDIO
         )
             .withListener(object : MultiplePermissionsListener {
                 override fun onPermissionsChecked(report: MultiplePermissionsReport) {
@@ -181,7 +179,7 @@ abstract class CameraFragment : BaseFragment() {
     /**
      * Showing Alert Dialog with Settings option in case of deny any permission
      */
-    private fun showSettingsDialog() {
+    fun showSettingsDialog() {
         AlertDialog.Builder(activity)
         .setTitle(getString(R.string.message_need_permission))
         .setMessage(getString(R.string.message_permission))

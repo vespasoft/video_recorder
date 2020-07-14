@@ -1,5 +1,7 @@
 package com.voicemod.videorecorder.view.fragments
 
+import android.Manifest
+import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +9,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.karumi.dexter.Dexter
+import com.karumi.dexter.MultiplePermissionsReport
+import com.karumi.dexter.PermissionToken
+import com.karumi.dexter.listener.PermissionRequest
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.voicemod.videorecorder.R
 import com.voicemod.videorecorder.data.entities.VideoEntity
 import com.voicemod.videorecorder.presentation.viewmodel.VideoRecorderVMFactory
@@ -29,10 +36,10 @@ class VideoRecorderFragment : CameraFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (savedInstanceState == null) {
-            viewModel.getViewStatus()
-        }
         cameraActivity = activity as CameraActivity
+        if (savedInstanceState == null) {
+            requestExternalStoragePermission(cameraActivity)
+        }
     }
 
     override fun onCreateView(
@@ -118,6 +125,34 @@ class VideoRecorderFragment : CameraFragment() {
         mSaveImageView.visibility = View.GONE
         mCancelImageView.visibility = View.GONE
         enableTextureViewAndOpenCamera()
+    }
+
+    private fun requestExternalStoragePermission(activity: Activity) {
+        Dexter.withActivity(activity).withPermissions(
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+        )
+            .withListener(object : MultiplePermissionsListener {
+                override fun onPermissionsChecked(report: MultiplePermissionsReport) {
+                    if (report.areAllPermissionsGranted()) {
+                        viewModel.getViewStatus()
+                    }
+                    if (report.isAnyPermissionPermanentlyDenied) {
+                        showSettingsDialog()
+                    }
+                }
+
+                override fun onPermissionRationaleShouldBeShown(
+                    permissions: List<PermissionRequest>,
+                    token: PermissionToken
+                ) {
+                    token.continuePermissionRequest()
+                }
+            }).withErrorListener { error ->
+                Toast.makeText(activity.applicationContext,"¡La App no tiene permiso para grabar ficheros!", Toast.LENGTH_SHORT).show()
+            }
+            .onSameThread()
+            .check()
     }
 
     companion object {
